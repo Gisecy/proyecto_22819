@@ -1,6 +1,8 @@
+from datetime import datetime
 from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template import loader
 
 # Create your views here.
 def index(request):
@@ -13,22 +15,28 @@ def index(request):
     #    <h1>{titulo}</h1>
     #    <p>{parameters_get}</p>
     # """)
-    listado_cursos= {
-        "nombre": "Fullstack Java",
-        "descripcion": "Curso de Fullstack",
-        "categoria": "Programación"
-    },
-    {
-        "nombre": "Diseño UX/IU",
-        "descripcion": "",
-        "categoria": "Diseño"
-    },
-    {
-        "nombre": "",
-        "descripcion": "",
-        "categoria": "Programación"
-    },
-    return render(request,'cac/index.html', {'titulo': titulo})
+    listado_cursos = [
+        {
+            "nombre": "Fullstack Java",
+            "descripcion": "Curso de Fullstack",
+            "categoria": "Programación"
+        },
+        {
+            "nombre": "Diseño UX/IU",
+            "descripcion": "Pintura",
+            "categoria": "Diseño"
+        },
+        {
+            "nombre": "Big Data",
+            "descripcion":"Test",
+            "categoria": "Analisis de datos"
+        },
+    ]
+    return render(request,'cac/index.html', {
+                                    'titulo': titulo,
+                                    "cursos":listado_cursos,
+                                    "parametros": parameters_get,
+                                    "hoy": datetime.now})
 
 def hola_mundo(request):    
     return HttpResponse("Hola mundo Django")
@@ -69,6 +77,8 @@ def ver_proyecto_2022_07(request):
     
 def quienes_somos(request):
     #return redirect("saludar_por_defecto")
-    return redirect(reverse("saludar", kwargs={'nombre': "Gisela"}))
-    pass
+    #return redirect(reverse("saludar", kwargs={'nombre': "Gisela"}))
+    template = loader.get_template("cac/quienes_somos.html")
+    context = {"titulo": "Codo a Codo - Quienes somos"}
+    return HttpResponse(template.render(context, request))
 

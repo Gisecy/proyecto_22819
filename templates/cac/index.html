@@ -7,7 +7,20 @@
     <title>Inicio CAC</title>
 </head>
 <body>
-    <h1>{{titulo}}</h1>
-    <p>{% lorem 1 b random %}</p>
+    <h1>{{ titulo_nombre }}</h1>
+    <p>{{ parametros }}</p>
+    <p>{{ hoy|date:"d-m-Y  H:i:s"}}</p>
+    {%  if cursos|length > 0  %}
+    <ul>
+        {%  for curso in cursos  %}
+            <li>
+                {{ curso.nombre }} - {{ curso.categoria }}
+                <p>{{ curso.descripcion }}</p>
+            </li>
+        {%  endfor  %}
+    </ul>
+    {%  else  %}
+        <p>No se encuentran cursos disponibles</p>
+    {% endif %}
 </body>
 </html>
