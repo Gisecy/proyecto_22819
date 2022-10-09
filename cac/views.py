@@ -13,6 +13,21 @@ def index(request):
     #    <h1>{titulo}</h1>
     #    <p>{parameters_get}</p>
     # """)
+    listado_cursos= {
+        "nombre": "Fullstack Java",
+        "descripcion": "Curso de Fullstack",
+        "categoria": "Programación"
+    },
+    {
+        "nombre": "Diseño UX/IU",
+        "descripcion": "",
+        "categoria": "Diseño"
+    },
+    {
+        "nombre": "",
+        "descripcion": "",
+        "categoria": "Programación"
+    },
     return render(request,'cac/index.html', {'titulo': titulo})
 
 def hola_mundo(request):    
